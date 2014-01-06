@@ -1,5 +1,6 @@
-##@package Randomizer
-# Routines for producing random number quantites
+## @package Randomizer
+#  Routines for producing random number quantites
+#  @author Kevin Wierman
 
 import random
 

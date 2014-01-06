@@ -1,5 +1,9 @@
 ## @package Card
 #  Definition of a card for the Cards simulation
+#
+#  @author Kevin Wierman
+
+
 
 no_suit=0
 hearts=1
