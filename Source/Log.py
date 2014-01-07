@@ -16,6 +16,7 @@
 
 import time
 import Common
+import os
 
 ## Denotes the severity of the message
 Severity = Common.enum(Header=0, Normal=1, OK=2, Warning=3, Fail=4)
@@ -49,8 +50,9 @@ def log(severity=Severity.Normal, message=""):
 		timestamp="["+time.strftime("%d/%m/%Y")+" "+time.strftime("%H:%M:%S")+"] "
 		_logger_output_file.write(timestamp+tmpmessage)
 		_logger_output_file.flush()
+		os.fsync()
 
-## Creates a line 72 characters long
+## Creates a line 67 characters long
 #  The Severity this is set to is header
 def log_line():
 	log(Severity.Header,"-------------------------------------------------------------------")

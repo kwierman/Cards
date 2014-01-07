@@ -13,6 +13,7 @@ macro(python_add_packages)
 	    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/Source/
 	    COMMAND ${CMAKE_COMMAND} -E copy ${file} ${CMAKE_CURRENT_BINARY_DIR}/Source/${STRIPPED_NAME}.py
 	    COMMAND python -mcompileall ${CMAKE_CURRENT_BINARY_DIR}/Source/
+	    COMMENT "Copying Files over"
   		VERBATIM
     )
     list(APPEND PYTHON_BUILD_FILES ${OUTNAME})
@@ -47,3 +48,5 @@ macro(python_install)
 		COMMENT "Installing Python binaries and scripts" VERBATIM
 	)	
 endmacro()
+
+
