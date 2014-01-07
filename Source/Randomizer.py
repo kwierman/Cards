@@ -6,8 +6,6 @@
 #  The Random numbers used in the simulation are:
 #    - Decks of cards are generated at random
 #      - This is done at 
-#
-#  @warning The random number dependence will be migrated to a machine independant standard such as TRandom
 
 import random
 
