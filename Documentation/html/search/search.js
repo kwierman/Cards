@@ -10,8 +10,10 @@ var indexSectionsWithContent =
   0: "_acdeghlnprst",
   1: "_cd",
   2: "cdelrs",
-  3: "aceghlnprst",
-  4: "s"
+  3: "s",
+  4: "aceghlnprst",
+  5: "s",
+  6: "c"
 };
 
 var indexSectionNames =
@@ -19,8 +21,10 @@ var indexSectionNames =
   0: "all",
   1: "classes",
   2: "namespaces",
-  3: "functions",
-  4: "variables"
+  3: "files",
+  4: "functions",
+  5: "variables",
+  6: "pages"
 };
 
 function convertToId(search)

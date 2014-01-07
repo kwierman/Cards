@@ -1,5 +1,27 @@
-#/usr/bin/python
-#ShuffleSim.py
+## @mainpage Cards
+#  @tableofcontents
+#  @section intro Introduction
+#
+#  The Cards simulation was created for an easy way to simulate card games and calculate probabilities associated with cards.
+#
+#  The primary packages to be used are:
+#    - Card
+#      - Card class definitions
+#    - Deck
+#      - Deck class definitions
+#    - Shuffle
+#      - Shuffling algorithms
+#    - Randomizer
+#      - Randomization routines
+#
+#  @section downloading Downloading
+#  The following code can be used to download the code:
+#  ~~~~~~~~~~~~~~~~~~~~~
+#  git clone https://github.com/kwierman/Cards.git
+#  ~~~~~~~~~~~~~~~~~~~~~
+
+## @file ShuffleSim.py
+#  This is an example simulation card that uses the Cards library to simulate the shuffling of cards and calculates the probability of pattern retention
 
 import Deck
 import Entropy

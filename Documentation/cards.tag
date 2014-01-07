@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <tagfile>
+  <compound kind="file">
+    <name>ShuffleSim.py</name>
+    <path>/Users/kwierman/Dev/Source/kjw_software/Cards/</path>
+    <filename>ShuffleSim_8py</filename>
+  </compound>
   <compound kind="namespace">
     <name>Card</name>
     <filename>namespaceCard.html</filename>
@@ -203,5 +208,12 @@
       <anchor>a8853244d5e456dd37ac36dae9c1a11a2</anchor>
       <arglist></arglist>
     </member>
+  </compound>
+  <compound kind="page">
+    <name>index</name>
+    <title>Cards</title>
+    <filename>index</filename>
+    <docanchor file="index" title="Introduction">intro</docanchor>
+    <docanchor file="index" title="Downloading">downloading</docanchor>
   </compound>
 </tagfile>

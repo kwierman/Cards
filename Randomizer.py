@@ -1,6 +1,11 @@
 ## @package Randomizer
 #  Routines for producing random number quantites
+#
 #  @author Kevin Wierman
+#
+#  The Random numbers used in the simulation are:
+#    - Decks of cards are generated at random
+#      - This is done at 
 
 import random
 
