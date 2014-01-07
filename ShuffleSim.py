@@ -19,6 +19,14 @@
 #  ~~~~~~~~~~~~~~~~~~~~~
 #  git clone https://github.com/kwierman/Cards.git
 #  ~~~~~~~~~~~~~~~~~~~~~
+#
+#  @section dependencies Dependencies
+#  This package depends on:
+#    - Python 2.7 (Python 3.2 is unsupported at this point)
+#    - ROOT
+#      - <a href="http://root.cern.ch/drupal/">ROOT Website</a>
+#      - PyROOT must be enabled in the ROOT build.
+#      - The PYTHONPATH environment variable must be set to the PyROOT directory 
 
 ## @file ShuffleSim.py
 #  This is an example simulation card that uses the Cards library to simulate the shuffling of cards and calculates the probability of pattern retention
@@ -28,6 +36,7 @@ import Entropy
 import Randomizer
 import DeckCounter
 import Shuffle
+import Log
 
 from array import *
 
@@ -37,6 +46,7 @@ except:
 	from ROOT import *
 
 def main():
+	Log.set_logger_file("debug.txt")
 
 	shuffles=[]
 	entropy=[]
@@ -53,8 +63,6 @@ def main():
 			deck_2 = Shuffle.tent_shuffle(deck_2, split_point, tent_map, Randomizer.shuffle_left() )
 			entropic_similarity = DeckCounter.number_of_matching_cards(deck_2, mapping )
 
-
-			#print sum(DeckCounter.position_difference(deck_1, deck_2) )
 			shuffles.append(i)
 			#entropy.append( sum(DeckCounter.position_difference(deck_1, deck_2) ) )
 			entropy.append( entropic_similarity )
@@ -80,20 +88,25 @@ def main():
 	zero_list=[]
 
 	deck_list =[]
-	n_iterations = 1000
+	n_iterations = 10000
 	n_shuffles = 20
+	Log.log(Log.Severity.Header, "Creating Random Decks")
 	deck_list = [Randomizer.random_deck()  for i in range(n_iterations)]
+	Log.log(Log.Severity.OK, "Done")
+	Log.log(Log.Severity.Header, "Creating maps")
 	mapping = [ DeckCounter.generate_map(i) for i in deck_list ]
+	Log.log(Log.Severity.OK, "Done")
 	for i in range(n_shuffles):
+		Log.log(Log.Severity.Normal, "Shuffling: "+str(i+1) )
 		split_points = [Randomizer.split_point() for j in range(n_iterations) ]
 		tent_maps = [Randomizer.tent_map() for j in range(n_iterations) ]
 		shuffle_direction = [Randomizer.shuffle_left() for j in range(n_iterations)]
 		deck_list[:] = [Shuffle.tent_shuffle(deck_list[j], split_points[j], tent_maps[j],shuffle_direction[j]  ) for j in range(n_iterations) ]
 		similarities = [DeckCounter.number_of_matching_cards(deck_list[j], mapping[j] ) for j in range(n_iterations) ]
+		Log.log(Log.Severity.OK, "Done")
 
-		mean = float(sum(similarities) )/float(len(similarities))
-		err = sum( [abs( (float(x)-mean)*(float(x)-mean) ) for x in similarities  ] )/float(len( similarities))
-		print "Shuffle: "+str(i)+" Mean: "+str(mean)+"+/-"+str(err)
+		mean,err = Common.get_stats(similarities)
+		Log.log(Log.Severity.Normal," Mean: "+str(mean)+"+/-"+str(err))
 		shuffle_list.append(i+1)
 		mean_list.append(mean)
 		err_list.append(err)

@@ -19,7 +19,6 @@ class Deck:
 		self.private = _Card_List()
 
 	## Checks to make sure card before adding in a card
-	#  @param self should be self explainatory
 	#  @param card the card that should be added to the deck
 	def add_card(self, card ):
 		if(not type(card) == type( Card.Card() ) ):
@@ -30,6 +29,11 @@ class Deck:
 	def add_deck(self,other):
 		for i in other.private.cards:
 			self.add_card(i)
+
+	## Removes a card from the deck
+	#  @param card First instance of this card found in the deck will be removed
+	def remove_card(self, card):
+		self.private.cards.remove(card)
 
 	## Check deck to see if it has a card
 	#  @param self should be self explainatory
