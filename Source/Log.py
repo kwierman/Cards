@@ -48,6 +48,7 @@ def log(severity=Severity.Normal, message=""):
 	if (type(_logger_output_file)!=type(None)):
 		timestamp="["+time.strftime("%d/%m/%Y")+" "+time.strftime("%H:%M:%S")+"] "
 		_logger_output_file.write(timestamp+tmpmessage)
+		_logger_output_file.flush()
 
 ## Creates a line 72 characters long
 #  The Severity this is set to is header

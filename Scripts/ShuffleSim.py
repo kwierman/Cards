@@ -37,6 +37,7 @@ import Randomizer
 import DeckCounter
 import Shuffle
 import Log
+import Common
 
 from array import *
 
