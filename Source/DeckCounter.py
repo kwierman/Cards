@@ -39,6 +39,8 @@ def number_of_matching_cards(deck=Deck.Deck(), mapping = generate_map(Deck.Deck(
 		for j in mapping:
 			if( j[0]==i and ( card_before ==j[1] or card_after == j[2] ) ):
 				output+=1
+			if( j[0]==i and ( card_before ==j[1] and card_after == j[2] ) ):
+				output+=1
 	return output
 
 

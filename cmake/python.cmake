@@ -13,6 +13,7 @@ macro(python_add_packages)
 	    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/Source/
 	    COMMAND ${CMAKE_COMMAND} -E copy ${file} ${CMAKE_CURRENT_BINARY_DIR}/Source/${STRIPPED_NAME}.py
 	    COMMAND python -mcompileall ${CMAKE_CURRENT_BINARY_DIR}/Source/
+	    DEPENDS ${file}
 	    COMMENT "Copying Files over"
   		VERBATIM
     )
@@ -30,6 +31,8 @@ macro(python_add_scripts)
     add_custom_command(OUTPUT ${CMAKE_INSTALL_PREFIX}/Scripts/${STRIPPED_NAME}.py
 	    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}/Scripts/
   		COMMAND ${CMAKE_COMMAND} -E copy ${file} ${CMAKE_INSTALL_PREFIX}/Scripts/${STRIPPED_NAME}.py
+  		DEPENDS ${file}
+  		VERBATIM
 	)
 	list(APPEND PYTHON_INSTALL_FILES ${CMAKE_INSTALL_PREFIX}/Scripts/${STRIPPED_NAME}.py)
   endforeach()
@@ -37,7 +40,7 @@ endmacro()
 
 
 macro(python_build)
-	add_custom_target(python_build
+	add_custom_target(python_build ALL
 		DEPENDS ${PYTHON_BUILD_FILES}
 	  	COMMENT "Compiling Python binaries" VERBATIM	
 	)

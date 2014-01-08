@@ -50,7 +50,7 @@ def log(severity=Severity.Normal, message=""):
 		timestamp="["+time.strftime("%d/%m/%Y")+" "+time.strftime("%H:%M:%S")+"] "
 		_logger_output_file.write(timestamp+tmpmessage)
 		_logger_output_file.flush()
-		os.fsync()
+		os.fsync(_logger_output_file)
 
 ## Creates a line 67 characters long
 #  The Severity this is set to is header
@@ -74,3 +74,9 @@ def _debug():
 	log(Severity.Warning, "This is a Warning")
 	log(Severity.Fail, "This is a Failure")
 	log_line()
+
+
+
+
+
+	
