@@ -1,0 +1,9 @@
+Results
+==================
+
+The simulation was run for a 1000 generated decks, each shuffled 20 times. After each shuffle, each deck was checked for matching patterns
+
+
+.. image:: figure_1.svg
+.. image:: figure_2.svg
+.. image:: figure_3.svg

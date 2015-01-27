@@ -3,13 +3,37 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Cards's documentation!
+
+
+Cards: A non-rigorous Playing Card mote-carlo
 =================================
 
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
+
+   modules
+
+Introduction
+============
+At some point, the question was asked: "How many shuffles does it take to randomize a deck?" Well, I'd hate to figure this on out by hand, so Python is going to have to do it for us.
+
+Definitions
+=================
+First of all, we're going to have to define some the quantities involved.
+
+
+The primary packages to be used are:
+  - :py:class:`Cards.Card`
+    - This defines a card as an object with a class and a rank.
+    - Example: 
+  - :py:class:`Cards.Deck`
+    - Deck class definitions
+  - :py:class:`Cards.Shuffle`
+    - Shuffling algorithms
+  - :py:class:`Cards.Randomizer`
+    - Randomization routines
 
 
 
@@ -21,5 +45,7 @@ Indices and tables
 * :ref:`search`
 
 
+
 .. automodule:: Cards
 	:members:
+

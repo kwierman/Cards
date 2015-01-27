@@ -58,26 +58,41 @@
 <p>Card.py
 Definition of a card for the Cards simulation
 Author: Kevin Wierman</p>
-<dl class="attribute">
-<dt id="Cards.Card.Suits">
-<tt class="descclassname">Cards.Card.</tt><tt class="descname">Suits</tt><a class="headerlink" href="#Cards.Card.Suits" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Enum</span></tt></p>
-</dd></dl>
-
 <dl class="class">
 <dt id="Cards.Card.Card">
 <em class="property">class </em><tt class="descclassname">Cards.Card.</tt><tt class="descname">Card</tt><big>(</big><em>suit=0</em>, <em>rank=0</em><big>)</big><a class="reference internal" href="_modules/Cards/Card.html#Card"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Card.Card" title="Permalink to this definition">¶</a></dt>
-<dd><p>Card is a card</p>
+<dd><p>Public implementation of cards definition
+Cards have a suit and rank defined by enums.
+The private implementation of the interior members makes accidental copying impossible.</p>
 <dl class="method">
 <dt id="Cards.Card.Card.get_rank">
 <tt class="descname">get_rank</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Card.html#Card.get_rank"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Card.Card.get_rank" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Exposes rank of card as an enum</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="Cards.Card.Card.get_suit">
 <tt class="descname">get_suit</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Card.html#Card.get_suit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Card.Card.get_suit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Exposes suit of card as an enum</p>
+</dd></dl>
 
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Cards.Card.Ranks">
+<tt class="descclassname">Cards.Card.</tt><tt class="descname">Ranks</tt><a class="headerlink" href="#Cards.Card.Ranks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the numerical values for card suits.
+The Ranking is as follows:</p>
+<blockquote>
+<div><ol class="arabic simple" start="0">
+<li>Non-suit type for null-cards (value=Suits.no_suit)</li>
+<li>Hearts (value=Suits.hearts)</li>
+<li>Spades (value=Suits.spades)</li>
+<li>Diamonds (value=Suits.diamonds)</li>
+<li>Clubs (value=Suits.clubs)</li>
+</ol>
+</div></blockquote>
+<p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Enum</span></tt></p>
 </dd></dl>
 
 </div>
@@ -89,77 +104,99 @@ Author: Kevin Wierman</p>
 <dl class="function">
 <dt id="Cards.Common.average">
 <tt class="descclassname">Cards.Common.</tt><tt class="descname">average</tt><big>(</big><em>input_list=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/Cards/Common.html#average"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Common.average" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Provides the functionality for finding the average of a list of numerical values</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Common.enum">
 <tt class="descclassname">Cards.Common.</tt><tt class="descname">enum</tt><big>(</big><em>**enums</em><big>)</big><a class="reference internal" href="_modules/Cards/Common.html#enum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Common.enum" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Provides a c-like enum for usage in other packages
+&#64;note Should anything else require this functionality, this should be moved to a common module
+&#64;warning This breaks forwards compatability with python 3.2
+&#64;param <a href="#id2"><span class="problematic" id="id3">**</span></a>enums the enumerated parameters, see Severity for usage</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Common.get_stats">
 <tt class="descclassname">Cards.Common.</tt><tt class="descname">get_stats</tt><big>(</big><em>input_list=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/Cards/Common.html#get_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Common.get_stats" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Provides a consice way of getting statistics</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Common.std_dev">
 <tt class="descclassname">Cards.Common.</tt><tt class="descname">std_dev</tt><big>(</big><em>input_list=</em><span class="optional">[</span><span class="optional">]</span>, <em>mean=None</em><big>)</big><a class="reference internal" href="_modules/Cards/Common.html#std_dev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Common.std_dev" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Provides the functionality for retrieving the standard deviation given the mean</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-Cards.Deck">
 <span id="deck-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Deck</span></tt> Module<a class="headerlink" href="#module-Cards.Deck" title="Permalink to this headline">¶</a></h2>
+<p>Deck.py
+Deck definition in the cards simulation
+Author: Kevin Wierman</p>
 <dl class="class">
 <dt id="Cards.Deck.Deck">
 <em class="property">class </em><tt class="descclassname">Cards.Deck.</tt><tt class="descname">Deck</tt><a class="reference internal" href="_modules/Cards/Deck.html#Deck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.Deck" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Class to represent decks of cards</p>
+<dl class="method">
 <dt id="Cards.Deck.Deck.add_card">
 <tt class="descname">add_card</tt><big>(</big><em>card</em><big>)</big><a class="reference internal" href="_modules/Cards/Deck.html#Deck.add_card"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.Deck.add_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Checks to make sure card before adding in a card
+&#64;param card the card that should be added to the deck</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="Cards.Deck.Deck.add_deck">
 <tt class="descname">add_deck</tt><big>(</big><em>other</em><big>)</big><a class="reference internal" href="_modules/Cards/Deck.html#Deck.add_deck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.Deck.add_deck" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Appends other deck to this one</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="Cards.Deck.Deck.get_card_after">
 <tt class="descname">get_card_after</tt><big>(</big><em>card</em><big>)</big><a class="reference internal" href="_modules/Cards/Deck.html#Deck.get_card_after"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.Deck.get_card_after" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>## For a given card, checks the deck for the card, then returns the card after</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="Cards.Deck.Deck.get_card_before">
 <tt class="descname">get_card_before</tt><big>(</big><em>card</em><big>)</big><a class="reference internal" href="_modules/Cards/Deck.html#Deck.get_card_before"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.Deck.get_card_before" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>## For a given card, checks the deck for the card, then returns the card before</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="Cards.Deck.Deck.has_card">
 <tt class="descname">has_card</tt><big>(</big><em>card</em><big>)</big><a class="reference internal" href="_modules/Cards/Deck.html#Deck.has_card"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.Deck.has_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>## Check deck to see if it has a card
+#  &#64;param self should be self explainatory
+#  &#64;param card input the card you want to check against</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="Cards.Deck.Deck.remove_card">
 <tt class="descname">remove_card</tt><big>(</big><em>card</em><big>)</big><a class="reference internal" href="_modules/Cards/Deck.html#Deck.remove_card"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.Deck.remove_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Removes a card from the deck
+&#64;param card First instance of this card found in the deck will be removed</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="Cards.Deck.construct_standard_deck">
 <tt class="descclassname">Cards.Deck.</tt><tt class="descname">construct_standard_deck</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Deck.html#construct_standard_deck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Deck.construct_standard_deck" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>## Constructs a deck in order determined by suit, rank</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-Cards.DeckCounter">
 <span id="deckcounter-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">DeckCounter</span></tt> Module<a class="headerlink" href="#module-Cards.DeckCounter" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="Cards.DeckCounter.generate_map">
-<tt class="descclassname">Cards.DeckCounter.</tt><tt class="descname">generate_map</tt><big>(</big><em>deck=&lt;Cards.Deck.Deck instance at 0x30cf9e0&gt;</em><big>)</big><a class="reference internal" href="_modules/Cards/DeckCounter.html#generate_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.DeckCounter.generate_map" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">Cards.DeckCounter.</tt><tt class="descname">generate_map</tt><big>(</big><em>deck=&lt;Cards.Deck.Deck instance at 0x14b7440&gt;</em><big>)</big><a class="reference internal" href="_modules/Cards/DeckCounter.html#generate_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.DeckCounter.generate_map" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="Cards.DeckCounter.number_of_matching_cards">
-<tt class="descclassname">Cards.DeckCounter.</tt><tt class="descname">number_of_matching_cards</tt><big>(</big><em>deck=&lt;Cards.Deck.Deck instance at 0x30d06c8&gt;</em>, <em>mapping=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/Cards/DeckCounter.html#number_of_matching_cards"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.DeckCounter.number_of_matching_cards" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">Cards.DeckCounter.</tt><tt class="descname">number_of_matching_cards</tt><big>(</big><em>deck=&lt;Cards.Deck.Deck instance at 0x14b7680&gt;</em>, <em>mapping=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="reference internal" href="_modules/Cards/DeckCounter.html#number_of_matching_cards"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.DeckCounter.number_of_matching_cards" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -172,54 +209,106 @@ Author: Kevin Wierman</p>
 <span id="entropy-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Entropy</span></tt> Module<a class="headerlink" href="#module-Cards.Entropy" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="Cards.Entropy.deck_entropy">
-<tt class="descclassname">Cards.Entropy.</tt><tt class="descname">deck_entropy</tt><big>(</big><em>deck_1</em>, <em>deck_2=&lt;Cards.Deck.Deck instance at 0x31a34d0&gt;</em><big>)</big><a class="reference internal" href="_modules/Cards/Entropy.html#deck_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Entropy.deck_entropy" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">Cards.Entropy.</tt><tt class="descname">deck_entropy</tt><big>(</big><em>deck_1</em>, <em>deck_2=&lt;Cards.Deck.Deck instance at 0x2642ef0&gt;</em><big>)</big><a class="reference internal" href="_modules/Cards/Entropy.html#deck_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Entropy.deck_entropy" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 <div class="section" id="module-Cards.Log">
 <span id="log-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Log</span></tt> Module<a class="headerlink" href="#module-Cards.Log" title="Permalink to this headline">¶</a></h2>
+<p>&#64;package Log
+Provides logging functionality</p>
+<p>&#64;author Kevin Wierman</p>
+<dl class="docutils">
+<dt>Typical usage is to:</dt>
+<dd><ul class="first last simple">
+<li>Set the logfile:
+- Log.set_logger_file(&#8220;yourlogfile.log&#8221;)</li>
+<li>Log a header:
+- Log.log(Log.Severity.Header, &#8220;Your Header&#8221;)</li>
+<li>Log a line:
+- Log.log_line()</li>
+<li>Log a normal message:
+- Log.log(Log.Severity.Normal, &#8220;Your Message&#8221;)</li>
+<li>Etc...</li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="Cards.Log.Severity">
+<tt class="descclassname">Cards.Log.</tt><tt class="descname">Severity</tt><a class="headerlink" href="#Cards.Log.Severity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Denotes the severity of the message</p>
+<p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Enum</span></tt></p>
+</dd></dl>
+
 <dl class="function">
 <dt id="Cards.Log.log">
 <tt class="descclassname">Cards.Log.</tt><tt class="descname">log</tt><big>(</big><em>severity=1</em>, <em>message=''</em><big>)</big><a class="reference internal" href="_modules/Cards/Log.html#log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Log.log" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Logs a message to the terminal with the given severity and outputs to file if, already set
+&#64;note Each line in the log file will be tagged with the date and time
+&#64;param severity Use the Severity enum to set the severity of the message
+&#64;param message The message to be logged</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Log.log_line">
 <tt class="descclassname">Cards.Log.</tt><tt class="descname">log_line</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Log.html#log_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Log.log_line" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Creates a line 67 characters long
+The Severity this is set to is header</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Log.set_logger_file">
 <tt class="descclassname">Cards.Log.</tt><tt class="descname">set_logger_file</tt><big>(</big><em>name='log.log'</em><big>)</big><a class="reference internal" href="_modules/Cards/Log.html#set_logger_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Log.set_logger_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Opens a file for logging output. 
+&#64;warning This overwrites the current
+&#64;param name the name of the output file. No formatting done</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-Cards.Randomizer">
 <span id="randomizer-module"></span><h2><tt class="xref py py-mod docutils literal"><span class="pre">Randomizer</span></tt> Module<a class="headerlink" href="#module-Cards.Randomizer" title="Permalink to this headline">¶</a></h2>
+<p>&#64;package Randomizer
+Routines for producing random number quantites</p>
+<p>&#64;author Kevin Wierman</p>
+<dl class="docutils">
+<dt>The Random numbers used in the simulation are:</dt>
+<dd><ul class="first last simple">
+<li>Decks of cards are generated at random
+- This is done at</li>
+</ul>
+</dd>
+</dl>
 <dl class="function">
 <dt id="Cards.Randomizer.generate_random_card">
 <tt class="descclassname">Cards.Randomizer.</tt><tt class="descname">generate_random_card</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Randomizer.html#generate_random_card"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Randomizer.generate_random_card" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generates random Card</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Randomizer.random_deck">
 <tt class="descclassname">Cards.Randomizer.</tt><tt class="descname">random_deck</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Randomizer.html#random_deck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Randomizer.random_deck" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generates random deck in worst order time</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Randomizer.shuffle_left">
 <tt class="descclassname">Cards.Randomizer.</tt><tt class="descname">shuffle_left</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Randomizer.html#shuffle_left"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Randomizer.shuffle_left" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generates a random boolean quantitity for shuffling purposes
+&#64;note: this is also done in worst order time.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Randomizer.split_point">
 <tt class="descclassname">Cards.Randomizer.</tt><tt class="descname">split_point</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Randomizer.html#split_point"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Randomizer.split_point" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generates a split point roughly somewhere in the middle of the deck
+&#64;note: Needs improvement for normal distribution around deck center</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Randomizer.tent_map">
 <tt class="descclassname">Cards.Randomizer.</tt><tt class="descname">tent_map</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Cards/Randomizer.html#tent_map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Randomizer.tent_map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Generates a mapping for the tent shuffle</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-Cards.Shuffle">
@@ -229,12 +318,16 @@ Performs shuffling operations on decks</p>
 <dl class="function">
 <dt id="Cards.Shuffle.split_deck">
 <tt class="descclassname">Cards.Shuffle.</tt><tt class="descname">split_deck</tt><big>(</big><em>deck</em>, <em>split_point=26</em><big>)</big><a class="reference internal" href="_modules/Cards/Shuffle.html#split_deck"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Shuffle.split_deck" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>## splits the deck into two decks
+#  &#64;param deck The deck to be split
+#  &#64;param split_point how many cards from the top of the deck to split it</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="Cards.Shuffle.tent_shuffle">
 <tt class="descclassname">Cards.Shuffle.</tt><tt class="descname">tent_shuffle</tt><big>(</big><em>deck</em>, <em>split_point=26</em>, <em>groups=</em><span class="optional">[</span><span class="optional">]</span>, <em>shuffle_left=True</em><big>)</big><a class="reference internal" href="_modules/Cards/Shuffle.html#tent_shuffle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Cards.Shuffle.tent_shuffle" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>## performs a tent shuffle</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-Cards.setup">

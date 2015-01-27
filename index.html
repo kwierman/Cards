@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to Cards’s documentation! &mdash; Cards 1.0 documentation</title>
+    <title>Cards: A non-rigorous Playing Card mote-carlo &mdash; Cards 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -26,7 +26,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Cards 1.0 documentation" href="#" /> 
+    <link rel="top" title="Cards 1.0 documentation" href="#" />
+    <link rel="next" title="Cards" href="modules.html" /> 
   </head>
   <body>
     <div class="related">
@@ -38,6 +39,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Cards"
+             accesskey="N">next</a> |</li>
         <li><a href="#">Cards 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -47,13 +51,52 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="welcome-to-cards-s-documentation">
-<h1>Welcome to Cards&#8217;s documentation!<a class="headerlink" href="#welcome-to-cards-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="cards-a-non-rigorous-playing-card-mote-carlo">
+<h1>Cards: A non-rigorous Playing Card mote-carlo<a class="headerlink" href="#cards-a-non-rigorous-playing-card-mote-carlo" title="Permalink to this headline">¶</a></h1>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Cards</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Cards.html">Cards Package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#id1"><tt class="docutils literal"><span class="pre">Cards</span></tt> Package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.Card"><tt class="docutils literal"><span class="pre">Card</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.Common"><tt class="docutils literal"><span class="pre">Common</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.Deck"><tt class="docutils literal"><span class="pre">Deck</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.DeckCounter"><tt class="docutils literal"><span class="pre">DeckCounter</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.Entropy"><tt class="docutils literal"><span class="pre">Entropy</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.Log"><tt class="docutils literal"><span class="pre">Log</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.Randomizer"><tt class="docutils literal"><span class="pre">Randomizer</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.Shuffle"><tt class="docutils literal"><span class="pre">Shuffle</span></tt> Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cards.html#module-Cards.setup"><tt class="docutils literal"><span class="pre">setup</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
+</div>
+<div class="section" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+<p>At some point, the question was asked: &#8220;How many shuffles does it take to randomize a deck?&#8221; Well, I&#8217;d hate to figure this on out by hand, so Python is going to have to do it for us.</p>
+</div>
+<div class="section" id="definitions">
+<h1>Definitions<a class="headerlink" href="#definitions" title="Permalink to this headline">¶</a></h1>
+<p>First of all, we&#8217;re going to have to define some the quantities involved.</p>
+<dl class="docutils">
+<dt>The primary packages to be used are:</dt>
+<dd><ul class="first last simple">
+<li><a class="reference internal" href="Cards.html#module-Cards.Card" title="Cards.Card"><tt class="xref py py-class docutils literal"><span class="pre">Cards.Card</span></tt></a>
+- This defines a card as an object with a class and a rank.
+- Example:</li>
+<li><a class="reference internal" href="Cards.html#module-Cards.Deck" title="Cards.Deck"><tt class="xref py py-class docutils literal"><span class="pre">Cards.Deck</span></tt></a>
+- Deck class definitions</li>
+<li><a class="reference internal" href="Cards.html#module-Cards.Shuffle" title="Cards.Shuffle"><tt class="xref py py-class docutils literal"><span class="pre">Cards.Shuffle</span></tt></a>
+- Shuffling algorithms</li>
+<li><a class="reference internal" href="Cards.html#module-Cards.Randomizer" title="Cards.Randomizer"><tt class="xref py py-class docutils literal"><span class="pre">Cards.Randomizer</span></tt></a>
+- Randomization routines</li>
+</ul>
+</dd>
+</dl>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
@@ -73,12 +116,17 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to Cards&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#">Cards: A non-rigorous Playing Card mote-carlo</a><ul>
 </ul>
 </li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#definitions">Definitions</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
+  <h4>Next topic</h4>
+  <p class="topless"><a href="modules.html"
+                        title="next chapter">Cards</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/index.txt"
@@ -110,6 +158,9 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="modules.html" title="Cards"
+             >next</a> |</li>
         <li><a href="#">Cards 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
