@@ -1,0 +1,177 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cards.Log &mdash; Cards 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Cards 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Cards 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Cards.Log</h1><div class="highlight"><pre>
+<span class="c">## @package Log</span>
+<span class="c">#  Provides logging functionality</span>
+<span class="c">#</span>
+<span class="c">#  @author Kevin Wierman</span>
+<span class="c">#</span>
+<span class="c">#  Typical usage is to:</span>
+<span class="c">#    - Set the logfile:</span>
+<span class="c">#      - Log.set_logger_file(&quot;yourlogfile.log&quot;) </span>
+<span class="c">#    - Log a header:</span>
+<span class="c">#      - Log.log(Log.Severity.Header, &quot;Your Header&quot;)</span>
+<span class="c">#    - Log a line:</span>
+<span class="c">#      - Log.log_line()</span>
+<span class="c">#    - Log a normal message:</span>
+<span class="c">#      - Log.log(Log.Severity.Normal, &quot;Your Message&quot;)</span>
+<span class="c">#    - Etc...</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">Common</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c">## Denotes the severity of the message</span>
+<span class="n">Severity</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">enum</span><span class="p">(</span><span class="n">Header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">Normal</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">OK</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="ne">Warning</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">Fail</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">_logger_output_file</span><span class="o">=</span><span class="bp">None</span>
+<span class="n">_logfile_name</span><span class="o">=</span><span class="s">&#39;log.log&#39;</span>
+
+<span class="c">## Opens a file for logging output. </span>
+<span class="c">#  @warning This overwrites the current</span>
+<span class="c">#  @param name the name of the output file. No formatting done</span>
+<div class="viewcode-block" id="set_logger_file"><a class="viewcode-back" href="../../Cards.html#Cards.Log.set_logger_file">[docs]</a><span class="k">def</span> <span class="nf">set_logger_file</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&quot;log.log&quot;</span><span class="p">):</span>
+	<span class="k">global</span> <span class="n">_logger_output_file</span>
+	<span class="k">global</span> <span class="n">_logfile_name</span>
+	<span class="n">_logfile_name</span><span class="o">=</span><span class="n">name</span>
+	<span class="n">_logger_output_file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">_logfile_name</span><span class="p">,</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+</div>
+<span class="n">_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[95m&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[94m&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[92m&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[93m&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[91m&quot;</span><span class="p">,</span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[0m&quot;</span><span class="p">]</span>
+
+<span class="c">## Logs a message to the terminal with the given severity and outputs to file if, already set</span>
+<span class="c">#  @note Each line in the log file will be tagged with the date and time</span>
+<span class="c">#  @param severity Use the Severity enum to set the severity of the message</span>
+<span class="c">#  @param message The message to be logged</span>
+<div class="viewcode-block" id="log"><a class="viewcode-back" href="../../Cards.html#Cards.Log.log">[docs]</a><span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">severity</span><span class="o">=</span><span class="n">Severity</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+	<span class="k">global</span> <span class="n">_logger_output_file</span>
+	<span class="n">tmpmessage</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">severity</span><span class="p">):</span>
+		<span class="n">tmpmessage</span><span class="o">=</span><span class="s">&#39;  &#39;</span><span class="o">+</span><span class="n">tmpmessage</span>
+	<span class="k">print</span> <span class="n">_colors</span><span class="p">[</span><span class="n">severity</span><span class="p">],</span> <span class="n">tmpmessage</span><span class="p">,</span><span class="n">_colors</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+	<span class="n">tmpmessage</span><span class="o">+=</span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">_logger_output_file</span><span class="p">)</span><span class="o">!=</span><span class="nb">type</span><span class="p">(</span><span class="bp">None</span><span class="p">)):</span>
+		<span class="n">timestamp</span><span class="o">=</span><span class="s">&quot;[&quot;</span><span class="o">+</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%d</span><span class="s">/%m/%Y&quot;</span><span class="p">)</span><span class="o">+</span><span class="s">&quot; &quot;</span><span class="o">+</span><span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%H:%M:%S&quot;</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;] &quot;</span>
+		<span class="n">_logger_output_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">timestamp</span><span class="o">+</span><span class="n">tmpmessage</span><span class="p">)</span>
+		<span class="n">_logger_output_file</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+		<span class="n">os</span><span class="o">.</span><span class="n">fsync</span><span class="p">(</span><span class="n">_logger_output_file</span><span class="p">)</span>
+
+<span class="c">## Creates a line 67 characters long</span>
+<span class="c">#  The Severity this is set to is header</span></div>
+<div class="viewcode-block" id="log_line"><a class="viewcode-back" href="../../Cards.html#Cards.Log.log_line">[docs]</a><span class="k">def</span> <span class="nf">log_line</span><span class="p">():</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span><span class="s">&quot;-------------------------------------------------------------------&quot;</span><span class="p">)</span>
+
+<span class="c">## The debug function for this module</span></div>
+<span class="k">def</span> <span class="nf">_debug</span><span class="p">():</span>
+	<span class="n">log_line</span><span class="p">()</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="s">&quot;This is a Header&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="s">&quot;This is Body Text&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="s">&quot;This is Positive Feedback&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Warning</span><span class="p">,</span> <span class="s">&quot;This is a Warning&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Fail</span><span class="p">,</span> <span class="s">&quot;This is a Failure&quot;</span><span class="p">)</span>
+	<span class="n">log_line</span><span class="p">()</span>
+	<span class="n">set_logger_file</span><span class="p">(</span><span class="s">&quot;debug.txt&quot;</span><span class="p">)</span>
+	<span class="n">log_line</span><span class="p">()</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Header</span><span class="p">,</span> <span class="s">&quot;This is a Header&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="s">&quot;This is Body Text&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">OK</span><span class="p">,</span> <span class="s">&quot;This is Positive Feedback&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Warning</span><span class="p">,</span> <span class="s">&quot;This is a Warning&quot;</span><span class="p">)</span>
+	<span class="n">log</span><span class="p">(</span><span class="n">Severity</span><span class="o">.</span><span class="n">Fail</span><span class="p">,</span> <span class="s">&quot;This is a Failure&quot;</span><span class="p">)</span>
+	<span class="n">log_line</span><span class="p">()</span>
+
+
+
+
+
+	
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Cards 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Kevin Wierman.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

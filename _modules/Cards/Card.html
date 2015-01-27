@@ -1,0 +1,178 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cards.Card &mdash; Cards 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Cards 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Cards 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Cards.Card</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot; Card.py</span>
+<span class="sd">    Definition of a card for the Cards simulation</span>
+<span class="sd">    Author: Kevin Wierman</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">Common</span>
+
+
+<span class="n">__all__</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;Suits&quot;</span><span class="p">,</span> <span class="s">&quot;Card&quot;</span><span class="p">]</span>
+
+<span class="c">## Defines the numerical values for card suits.</span>
+<span class="c">#  The Ranking is as follows:</span>
+<span class="c">#    0. Non-suit type for null-cards (value=Suits.no_suit)</span>
+<span class="c">#    1. Hearts (value=Suits.hearts)</span>
+<span class="c">#    2. Spades (value=Suits.spades)</span>
+<span class="c">#    3. Diamonds (value=Suits.diamonds)</span>
+<span class="c">#    4. Clubs (value=Suits.clubs)</span>
+<span class="n">Suits</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">enum</span><span class="p">(</span><span class="n">no_suit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">hearts</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">spades</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">diamonds</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="n">clubs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">Ranks</span> <span class="o">=</span> <span class="n">Common</span><span class="o">.</span><span class="n">enum</span><span class="p">(</span><span class="n">joker</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">ace</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">jack</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span><span class="n">queen</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span><span class="n">king</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+
+<span class="c">## Private implementation of the suit used in the card in order to avoid unneccessary comparison</span>
+<span class="c">#</span>
+<span class="k">class</span> <span class="nc">_Suit</span><span class="p">:</span>
+	<span class="c">## Default behavior is to </span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">Suits</span><span class="o">.</span><span class="n">no_suit</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+	<span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+	<span class="c">## String representation is in the format: &quot;&lt;value&gt;&quot;</span>
+	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Suits</span><span class="o">.</span><span class="n">hearts</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;hearts&quot;</span>
+		<span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Suits</span><span class="o">.</span><span class="n">spades</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;spades&quot;</span>
+		<span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Suits</span><span class="o">.</span><span class="n">diamonds</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;diamonds&quot;</span>
+		<span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Suits</span><span class="o">.</span><span class="n">clubs</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;clubs&quot;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="s">&quot;no suit&quot;</span>
+
+<span class="c">## Private implementation of a rank to be used in order to retain hard types</span>
+<span class="k">class</span> <span class="nc">_Rank</span><span class="p">:</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">Ranks</span><span class="o">.</span><span class="n">joker</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+	<span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">value</span>
+	<span class="c">## String representation is in the format: &quot;&lt;value&gt;&quot;.</span>
+	<span class="c">#  &lt;value&gt; can take on either numerical values or string representation for face cards.</span>
+	<span class="c">#  Default behavior for numerical values beyond the normal card system is to evaluate to &quot;joker&quot;.</span>
+	<span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">if</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Ranks</span><span class="o">.</span><span class="n">joker</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;joker&quot;</span>
+		<span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Ranks</span><span class="o">.</span><span class="n">ace</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;ace&quot;</span>
+		<span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Ranks</span><span class="o">.</span><span class="n">jack</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;jack&quot;</span>
+		<span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Ranks</span><span class="o">.</span><span class="n">queen</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;queen&quot;</span>
+		<span class="k">elif</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">Ranks</span><span class="o">.</span><span class="n">king</span><span class="p">):</span>
+			<span class="k">return</span> <span class="s">&quot;king&quot;</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Card"><a class="viewcode-back" href="../../Cards.html#Cards.Card.Card">[docs]</a><span class="k">class</span> <span class="nc">Card</span><span class="p">:</span>
+	<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Card is a card</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">suit</span> <span class="o">=</span><span class="n">Suits</span><span class="o">.</span><span class="n">no_suit</span><span class="p">,</span> <span class="n">rank</span><span class="o">=</span><span class="n">Ranks</span><span class="o">.</span><span class="n">joker</span><span class="p">):</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">suit</span> <span class="o">=</span> <span class="n">_Suit</span><span class="p">(</span><span class="n">suit</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">_Rank</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Card.get_suit"><a class="viewcode-back" href="../../Cards.html#Cards.Card.Card.get_suit">[docs]</a>	<span class="k">def</span> <span class="nf">get_suit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">suit</span><span class="o">.</span><span class="n">value</span>
+</div>
+<div class="viewcode-block" id="Card.get_rank"><a class="viewcode-back" href="../../Cards.html#Cards.Card.Card.get_rank">[docs]</a>	<span class="k">def</span> <span class="nf">get_rank</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="o">.</span><span class="n">value</span>
+</div>
+	<span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">other</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">rank</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">suit</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">suit</span> 
+
+	<span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="s">&quot;Card: &quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rank</span><span class="p">)</span><span class="o">+</span><span class="s">&quot;  </span><span class="se">\t</span><span class="s">of  </span><span class="se">\t</span><span class="s">&quot;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">suit</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Cards 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Kevin Wierman.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cards.DeckCounter &mdash; Cards 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Cards 1.0 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Cards 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Cards.DeckCounter</h1><div class="highlight"><pre>
+<span class="c">## @package DeckCounter</span>
+<span class="c">#  This adds in the functionality to count the number of cards adjascent in a deck</span>
+
+<span class="kn">import</span> <span class="nn">Deck</span>
+
+<span class="c">## This will return a map of adjascent cards</span>
+<span class="c">#  @param deck, the reference deck to be used in the generation</span>
+<span class="c">#  @return list of tuples containing each card in the deck, the card before and the card after</span>
+<div class="viewcode-block" id="generate_map"><a class="viewcode-back" href="../../Cards.html#Cards.DeckCounter.generate_map">[docs]</a><span class="k">def</span> <span class="nf">generate_map</span><span class="p">(</span><span class="n">deck</span> <span class="o">=</span> <span class="n">Deck</span><span class="o">.</span><span class="n">Deck</span><span class="p">()</span> <span class="p">):</span>
+	<span class="c"># for each card, it will create a tuple of the card, the card before and the </span>
+	<span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="k">for</span> <span class="n">card</span> <span class="ow">in</span> <span class="n">deck</span><span class="o">.</span><span class="n">private</span><span class="o">.</span><span class="n">cards</span><span class="p">:</span>
+		<span class="n">before</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">get_card_before</span><span class="p">(</span> <span class="n">card</span><span class="p">)</span>
+		<span class="n">mapped</span> <span class="o">=</span> <span class="p">(</span><span class="n">card</span><span class="p">,</span> <span class="n">deck</span><span class="o">.</span><span class="n">get_card_before</span><span class="p">(</span> <span class="n">card</span> <span class="p">),</span> <span class="n">deck</span><span class="o">.</span><span class="n">get_card_after</span><span class="p">(</span> <span class="n">card</span> <span class="p">)</span> <span class="p">)</span>
+		<span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">mapped</span><span class="p">)</span> 
+	<span class="k">return</span> <span class="n">output</span>
+
+
+<span class="c">## Returns the absolute difference in position of cards in two decks</span>
+<span class="c">#  @param deck1 reference deck</span>
+<span class="c">#  @param deck2 difference deck</span>
+<span class="c">#  @return list of position differences</span></div>
+<div class="viewcode-block" id="position_difference"><a class="viewcode-back" href="../../Cards.html#Cards.DeckCounter.position_difference">[docs]</a><span class="k">def</span> <span class="nf">position_difference</span><span class="p">(</span><span class="n">deck1</span><span class="p">,</span> <span class="n">deck2</span><span class="p">):</span>
+	<span class="n">output</span><span class="o">=</span><span class="p">[]</span>
+	<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">card1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">deck1</span><span class="o">.</span><span class="n">private</span><span class="o">.</span><span class="n">cards</span><span class="p">):</span>
+		<span class="n">position_difference</span><span class="o">=</span><span class="mi">0</span>
+		<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">card2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">deck2</span><span class="o">.</span><span class="n">private</span><span class="o">.</span><span class="n">cards</span><span class="p">):</span>
+			<span class="k">if</span><span class="p">(</span><span class="n">card1</span><span class="o">==</span><span class="n">card2</span><span class="p">):</span>
+				<span class="n">position_difference</span><span class="o">=</span><span class="n">i</span><span class="o">-</span><span class="n">j</span>
+		<span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="nb">abs</span><span class="p">(</span><span class="n">position_difference</span><span class="p">)</span> <span class="p">)</span>
+	<span class="k">return</span> <span class="n">output</span>
+
+<span class="c">## Returns the number of card patterns matching the generated map:</span></div>
+<div class="viewcode-block" id="number_of_matching_cards"><a class="viewcode-back" href="../../Cards.html#Cards.DeckCounter.number_of_matching_cards">[docs]</a><span class="k">def</span> <span class="nf">number_of_matching_cards</span><span class="p">(</span><span class="n">deck</span><span class="o">=</span><span class="n">Deck</span><span class="o">.</span><span class="n">Deck</span><span class="p">(),</span> <span class="n">mapping</span> <span class="o">=</span> <span class="n">generate_map</span><span class="p">(</span><span class="n">Deck</span><span class="o">.</span><span class="n">Deck</span><span class="p">()</span> <span class="p">)):</span>
+	<span class="n">output</span><span class="o">=</span><span class="mi">0</span>
+	<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">deck</span><span class="o">.</span><span class="n">private</span><span class="o">.</span><span class="n">cards</span><span class="p">:</span>
+		<span class="n">card_before</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">get_card_before</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">card_after</span> <span class="o">=</span> <span class="n">deck</span><span class="o">.</span><span class="n">get_card_after</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+			<span class="k">if</span><span class="p">(</span> <span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">i</span> <span class="ow">and</span> <span class="p">(</span> <span class="n">card_before</span> <span class="o">==</span><span class="n">j</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">or</span> <span class="n">card_after</span> <span class="o">==</span> <span class="n">j</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span> <span class="p">):</span>
+				<span class="n">output</span><span class="o">+=</span><span class="mi">1</span>
+			<span class="k">if</span><span class="p">(</span> <span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">i</span> <span class="ow">and</span> <span class="p">(</span> <span class="n">card_before</span> <span class="o">==</span><span class="n">j</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">and</span> <span class="n">card_after</span> <span class="o">==</span> <span class="n">j</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span> <span class="p">):</span>
+				<span class="n">output</span><span class="o">+=</span><span class="mi">1</span>
+	<span class="k">return</span> <span class="n">output</span>
+
+</div>
+<span class="k">def</span> <span class="nf">_debug</span><span class="p">():</span>
+	<span class="n">deck</span> <span class="o">=</span> <span class="n">Deck</span><span class="o">.</span><span class="n">construct_standard_deck</span><span class="p">()</span>
+	<span class="k">print</span> <span class="n">deck</span>
+	<span class="n">mapped_deck</span> <span class="o">=</span> <span class="n">generate_map</span><span class="p">(</span><span class="n">deck</span> <span class="p">)</span>
+	<span class="k">print</span> <span class="n">mapped_deck</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">Cards 1.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Kevin Wierman.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

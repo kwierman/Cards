@@ -1,0 +1,83 @@
+Cards Package
+=============
+
+:mod:`Cards` Package
+--------------------
+
+.. automodule:: Cards.__init__
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`Card` Module
+------------------
+
+.. automodule:: Cards.Card
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`Common` Module
+--------------------
+
+.. automodule:: Cards.Common
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`Deck` Module
+------------------
+
+.. automodule:: Cards.Deck
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`DeckCounter` Module
+-------------------------
+
+.. automodule:: Cards.DeckCounter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`Entropy` Module
+---------------------
+
+.. automodule:: Cards.Entropy
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`Log` Module
+-----------------
+
+.. automodule:: Cards.Log
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`Randomizer` Module
+------------------------
+
+.. automodule:: Cards.Randomizer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`Shuffle` Module
+---------------------
+
+.. automodule:: Cards.Shuffle
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+:mod:`setup` Module
+-------------------
+
+.. automodule:: Cards.setup
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
